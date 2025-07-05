@@ -5,8 +5,8 @@ from mysql.connector import errorcode
 DB_NAME = 'commerce'
 DB_CONFIG = {
     'user': 'root',
-    'password': 'yourpassword',
-    'host': '127.0.0.1'
+    'password': '',
+    'host': 'host.docker.internal'
 }
 
 TABLES = {}
@@ -58,7 +58,10 @@ TABLES['Produit'] = (
     "  `prix` decimal(10,2) DEFAULT NULL,"
     "  `stock` int(11) DEFAULT NULL,"
     "  `imagee` LONGTEXT DEFAULT NULL,"
-    "  PRIMARY KEY (`id`)"
+    "  `id_commercant` int(11) DEFAULT NULL,"
+    "  PRIMARY KEY (`id`),"
+    "  KEY `id_commercant` (`id_commercant`),"
+    "  CONSTRAINT `produit_ibfk_1` FOREIGN KEY (`id_commercant`) REFERENCES `commercant` (`id`)"
     ") ENGINE=InnoDB")
 
 TABLES['Commande'] = (
@@ -130,6 +133,7 @@ TABLES['Panier'] = (
     "  CONSTRAINT `panier_ibfk_1` FOREIGN KEY (`id_client`) REFERENCES `client` (`id`),"
     "  CONSTRAINT `panier_ibfk_2` FOREIGN KEY (`id_produit`) REFERENCES `Produit` (`id`)"
     ") ENGINE=InnoDB")
+
 
 def main():
     try:

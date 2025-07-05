@@ -1,11 +1,22 @@
 <?php
-// session_start(); // Session not needed for public product list
+session_start();
 include 'conn.php';
+
+// Vérifier si le commerçant est connecté
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'commercant' || !isset($_SESSION['id_commercant'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$id_commercant = $_SESSION['id_commercant'];
 
 $conn->set_charset("utf8mb4");
 
-// Sélectionner tous les produits
-$result = $conn->query("SELECT * FROM Produit");
+// Sélectionner uniquement les produits du commerçant connecté
+$stmt = $conn->prepare("SELECT * FROM Produit WHERE id_commercant = ?");
+$stmt->bind_param("i", $id_commercant);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -165,5 +176,6 @@ $result = $conn->query("SELECT * FROM Produit");
 </html>
 
 <?php 
+$stmt->close();
 $conn->close(); 
 ?>

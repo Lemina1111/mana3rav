@@ -2,24 +2,27 @@
 session_start();
 include 'conn.php';
 
-// This page is no longer restricted
-// if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'commercant' || !isset($_SESSION['id_commercant'])) {
-//     header("Location: login.php");
-//     exit;
-// }
+// Vérifier si le commerçant est connecté
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'commercant' || !isset($_SESSION['id_commercant'])) {
+    header("Location: login.php");
+    exit;
+}
 
+$id_commercant = $_SESSION['id_commercant'];
 $ID = isset($_GET["id"]) ? intval($_GET["id"]) : 0;
 $data = null;
 
 if ($ID > 0) {
-    $stmt = $conn->prepare("SELECT * FROM Produit WHERE id = ?");
-    $stmt->bind_param("i", $ID);
+    // Vérifier que le produit appartient bien au commerçant connecté
+    $stmt = $conn->prepare("SELECT * FROM Produit WHERE id = ? AND id_commercant = ?");
+    $stmt->bind_param("ii", $ID, $id_commercant);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $data = $result->fetch_assoc();
     } else {
-        echo "Produit non trouvé.";
+        // Le produit n'existe pas ou n'appartient pas au commerçant
+        echo "Produit non trouvé ou non autorisé.";
         exit;
     }
     $stmt->close();
@@ -31,8 +34,9 @@ if (isset($_POST["update"])) {
     $prix = floatval($_POST['prix']);
     $stock = intval($_POST['stock']);
 
-    $stmt_check = $conn->prepare("SELECT imagee FROM Produit WHERE id = ?");
-    $stmt_check->bind_param("i", $ID);
+    // Re-vérifier l'appartenance du produit avant la mise à jour
+    $stmt_check = $conn->prepare("SELECT imagee FROM Produit WHERE id = ? AND id_commercant = ?");
+    $stmt_check->bind_param("ii", $ID, $id_commercant);
     $stmt_check->execute();
     $result_check = $stmt_check->get_result();
     if ($result_check->num_rows === 0) {
@@ -58,8 +62,8 @@ if (isset($_POST["update"])) {
         }
     }
 
-    $stmt = $conn->prepare("UPDATE Produit SET nom=?, prix=?, stock=?, imagee=? WHERE id=?");
-    $stmt->bind_param("sdsis", $nom, $prix, $stock, $image_base64, $ID);
+    $stmt = $conn->prepare("UPDATE Produit SET nom=?, prix=?, stock=?, imagee=? WHERE id=? AND id_commercant = ?");
+    $stmt->bind_param("sdsisi", $nom, $prix, $stock, $image_base64, $ID, $id_commercant);
 
     if ($stmt->execute()) {
         header("Location: Produit.php");

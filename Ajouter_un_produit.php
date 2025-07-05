@@ -2,11 +2,13 @@
 session_start();
 include 'conn.php';
 
-// This page is no longer restricted to merchants
-// if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'commercant' || !isset($_SESSION['id_commercant'])) {
-//     header("Location: login.php");
-//     exit;
-// }
+// Vérifier si le commerçant est connecté
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'commercant' || !isset($_SESSION['id_commercant'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$id_commercant = $_SESSION['id_commercant'];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['ajouter'])) {
     if (isset($_POST['nom'], $_POST['prix'], $_POST['stock'])) {
@@ -29,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['ajouter'])) {
             }
         }
 
-        $stmt = $conn->prepare("INSERT INTO Produit (nom, prix, stock, imagee) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sdis", $nom, $prix, $stock, $image_base64);
+        $stmt = $conn->prepare("INSERT INTO Produit (nom, prix, stock, imagee, id_commercant) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sdsis", $nom, $prix, $stock, $image_base64, $id_commercant);
 
         if ($stmt->execute()) {
             header("Location: Produit.php");
