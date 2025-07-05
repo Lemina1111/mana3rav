@@ -1,6 +1,8 @@
  
  <?php
 session_start();
+session_destroy();
+session_start();
 include 'conn.php'; // connexion à la base
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {

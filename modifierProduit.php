@@ -63,7 +63,7 @@ if (isset($_POST["update"])) {
     }
 
     $stmt = $conn->prepare("UPDATE Produit SET nom=?, prix=?, stock=?, imagee=? WHERE id=? AND id_commercant = ?");
-    $stmt->bind_param("sdsisi", $nom, $prix, $stock, $image_base64, $ID, $id_commercant);
+    $stmt->bind_param("sdsii", $nom, $prix, $stock, $image_base64, $ID, $id_commercant);
 
     if ($stmt->execute()) {
         header("Location: Produit.php");

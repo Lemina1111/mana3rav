@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 
 // Chargement des produits
-$result = $conn->query("SELECT * FROM Produit");
+$result = $conn->query("SELECT p.*, c.id as id_commercant FROM Produit p JOIN commercant c ON p.id_commercant = c.id");
 $produits = [];
 while ($row = $result->fetch_assoc()) {
     $produits[] = $row;
@@ -149,6 +149,7 @@ function afficherProduits() {
                     <h5 class="nom-produit">${produit.nom}</h5>
                     <p><strong>${produit.prix} MRU</strong></p>
                     <button class="btn btn-outline-primary" onclick="ajouterAuPanier(${produit.id})">Ajouter au panier</button>
+                    <a href="chat.php?id_commercant=${produit.id_commercant}" class="btn btn-outline-secondary btn-sm mt-2">Contacter le vendeur</a>
                 </div>
             </div>
         `;

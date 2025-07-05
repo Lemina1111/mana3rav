@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['ajouter'])) {
         }
 
         $stmt = $conn->prepare("INSERT INTO Produit (nom, prix, stock, imagee, id_commercant) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sdsis", $nom, $prix, $stock, $image_base64, $id_commercant);
+        $stmt->bind_param("sdisi", $nom, $prix, $stock, $image_base64, $id_commercant);
 
         if ($stmt->execute()) {
             header("Location: Produit.php");

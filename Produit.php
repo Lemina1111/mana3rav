@@ -139,6 +139,7 @@ $result = $stmt->get_result();
     <ul class="nav-links">
         <li><a href="Produit.php">Produits</a></li>
         <li><a href="Ajouter_un_produit.php">Ajouter un produit</a></li>
+        <li><a href="conversations.php">Conversations</a></li>
         <li>
             <a href="logout.php" title="Déconnexion" onclick="return confirm('Voulez-vous vraiment vous déconnecter ?');">
                 <img src="https://cdn-icons-png.flaticon.com/512/1828/1828427.png" alt="Déconnexion" style="width: 25px; vertical-align: middle;">

@@ -5,8 +5,8 @@ from mysql.connector import errorcode
 DB_NAME = 'commerce'
 DB_CONFIG = {
     'user': 'root',
-    'password': '',
-    'host': 'host.docker.internal'
+    'password': 'yourpassword',  # Change this to your MySQL root password
+    'host': '127.0.0.1'
 }
 
 TABLES = {}
