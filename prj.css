@@ -1,0 +1,341 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f1f1f1;
+}
+
+aside {
+  width: 250px;
+  background-color: #2f3542;
+  color: white;
+  height: 100vh;
+  position: fixed;
+}
+
+aside .top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.logo h2 {
+  color: #ff4757;
+  font-size: 24px;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  color: white;
+  padding: 15px 20px;
+  transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+  background-color: #57606f;
+}
+
+.sidebar h3 {
+  margin-left: 15px;
+  font-size: 16px;
+}
+
+main {
+  margin-left: 250px;
+  padding: 20px;
+  flex: 1;
+  position: relative;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.card .material-symbols-outlined {
+  font-size: 40px;
+  color: #ff4757;
+}
+
+.card .content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card .content h3 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.card .content p {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2f3542;
+}
+
+main h1 {
+  font-size: 28px;
+  color: #2f3542;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.top-right-buttons {
+  display: flex;
+  gap: 15px;
+  position: relative;
+}
+
+.profile-menu,
+.language-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-btn,
+.language-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.profile-btn:hover,
+.language-btn:hover {
+  background-color: #0056b3;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 140px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  right: 0;
+  top: 100%;
+  z-index: 100;
+}
+
+.profile-menu:hover .dropdown-content,
+.language-menu:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.top-right-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.dashboard-tables {
+  display: flex;
+  max-width: 900px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  gap: 100px;
+  /* pas d’espace entre les deux */
+}
+
+.recent-orders,
+.recent-activity {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px 0 0 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.recent-activity {
+  border-radius: 0 12px 12px 0;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  flex-grow: 1;
+}
+
+thead tr {
+  background-color: #2a9df4;
+  color: white;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f7ff;
+}
+
+tbody tr:hover {
+  background-color: #d9eaff;
+  cursor: pointer;
+}
+
+.clients-section {
+  margin-top: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.client-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.client-table th,
+.client-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+
+.status.active {
+  color: green;
+  font-weight: bold;
+}
+
+.status.inactive {
+  color: red;
+  font-weight: bold;
+}
+
+button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.add-client-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background: black;
+  font-weight: 600;
+  color: white;
+}
+
+.status {
+  padding: 0.5rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.status.active {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.status.suspended {
+  background: #fbe9e7;
+  color: #d32f2f;
+}
+
+.btn-edit,
+.btn-delete,
+.btn-suspend,
+.btn-activate {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem;
+  margin: 0 0.2rem;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.btn-edit:hover {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.btn-delete:hover {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.btn-suspend:hover {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.btn-activate:hover {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
